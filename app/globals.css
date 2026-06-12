@@ -1,7 +1,12 @@
 body {
   margin: 0;
+<<<<<<< HEAD
   font-family: Arial, sans-serif;
   background: #0f0f14;
+=======
+  font-family: Arial;
+  background: #111;
+>>>>>>> e33f3d8761ba8e484b236a23f74b99ee8e66d365
   color: white;
 }
 
@@ -10,6 +15,7 @@ nav {
   justify-content: center;
   gap: 20px;
   padding: 15px;
+<<<<<<< HEAD
   background: #1a1a22;
   position: sticky;
   top: 0;
@@ -58,4 +64,12 @@ button:hover {
 img {
   border-radius: 12px;
   margin: 10px;
+=======
+  background: #1a1a1a;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+>>>>>>> e33f3d8761ba8e484b236a23f74b99ee8e66d365
 }

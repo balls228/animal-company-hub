@@ -16,7 +16,11 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+<<<<<<< HEAD
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+=======
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+>>>>>>> e33f3d8761ba8e484b236a23f74b99ee8e66d365
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
