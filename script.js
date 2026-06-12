@@ -3,6 +3,19 @@ import { supabase } from "./supabase.js";
 /* ================= STATE ================= */
 let user = null;
 
+/* logout */
+window.logout = async function () {
+  await supabase.auth.signOut();
+
+  user = null;
+
+  document.getElementById("app").style.display = "none";
+  document.getElementById("login").style.display = "flex";
+
+  // очистка UI
+  document.getElementById("profilePanel").style.display = "none";
+};
+
 /* ================= REGISTER ================= */
 window.register = async function () {
   const username = document.getElementById("username").value;
