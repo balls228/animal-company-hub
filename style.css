@@ -1,78 +1,138 @@
-@font-face {
-  font-family: "MyFont";
-  src: url("/assets/fonts/MyFont.ttf");
-}
+/* =========================
+   FONT (Google Fonts)
+========================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
-body {
-  font-family: "MyFont";
-}
-
-body {
+/* =========================
+   GLOBAL
+========================= */
+* {
   margin: 0;
-  font-family: Arial;
-  background: #0b0f1a;
-  color: white;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
 }
 
-/* LOGIN */
-.box {
-  height: 100vh;
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f0f1a, #1a1f3a);
+  color: white;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
+/* =========================
+   LOGIN / INPUTS
+========================= */
 input {
-  margin: 5px;
-  padding: 10px;
-  width: 200px;
-  border-radius: 8px;
+  width: 250px;
+  padding: 12px;
+  margin: 6px 0;
   border: none;
-}
-
-button {
-  margin: 5px;
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  background: #3a5bff;
-  color: white;
-  cursor: pointer;
-}
-
-/* APP */
-.hidden {
-  display: none;
-}
-
-.nav {
-  display: flex;
-  gap: 10px;
-  padding: 10px;
-  background: #11182b;
-}
-
-/* DROP ZONE */
-#dropZone {
-  margin: 20px;
-  padding: 40px;
-  border: 2px dashed #3a5bff;
-  border-radius: 12px;
-  text-align: center;
-  cursor: pointer;
-  color: #9aa8ff;
-}
-
-/* ASSETS GRID */
-#assetsList {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 150px);
-  gap: 10px;
-  padding: 10px;
-}
-
-#assetsList img {
-  width: 100%;
   border-radius: 10px;
+  outline: none;
+  background: #1e2540;
+  color: white;
+}
+
+input::placeholder {
+  color: #aaa;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+button {
+  width: 250px;
+  padding: 12px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  background: linear-gradient(90deg, #6a5acd, #00c6ff);
+  color: white;
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+
+/* =========================
+   LOGIN BOX
+========================= */
+#login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 25px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+}
+
+/* =========================
+   APP SCREEN
+========================= */
+#app {
+  text-align: center;
+}
+
+/* =========================
+   PROFILE CARD
+========================= */
+#profileCard {
+  margin-top: 20px;
+  padding: 20px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 15px;
+  width: 260px;
+  backdrop-filter: blur(12px);
+}
+
+#avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #00c6ff;
+  margin-bottom: 10px;
+}
+
+#nick {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+#role {
+  font-size: 14px;
+  margin-top: 5px;
+  opacity: 0.8;
+}
+
+/* =========================
+   ADMIN PANEL (если есть)
+========================= */
+#adminPanel {
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+}
+
+/* =========================
+   RESPONSIVE (mobile)
+========================= */
+@media (max-width: 600px) {
+  input, button {
+    width: 90vw;
+  }
+
+  #profileCard {
+    width: 90vw;
+  }
 }
