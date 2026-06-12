@@ -1,42 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>App</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- TOP BAR -->
-<div id="topbar">
-  <div class="nav">
-    <button onclick="goHome()">Home</button>
-    <button onclick="goAssets()">Assets</button>
+<!-- ================= LOGIN ================= -->
+<div id="login">
+  <h2>Login</h2>
+
+  <input id="username" placeholder="username">
+  <input id="email" placeholder="email">
+  <input id="password" type="password" placeholder="password">
+
+  <label style="color:white; font-size:13px;">
+    <input type="checkbox" id="rememberMe">
+    Remember me
+  </label>
+
+  <button onclick="login()">Login</button>
+  <button onclick="register()">Register</button>
+</div>
+
+<!-- ================= APP ================= -->
+<div id="app" style="display:none;">
+
+  <!-- TOP BAR -->
+  <div id="topbar">
+
+    <div class="nav">
+      <button onclick="goHome()">Home</button>
+      <button onclick="goAssets()">Assets</button>
+    </div>
+
+    <!-- PROFILE BUTTON -->
+    <div id="avatarBtn" onclick="toggleProfile()"></div>
   </div>
 
-  <div id="avatarBtn" onclick="toggleProfile()"></div>
+  <!-- HOME -->
+  <div id="home">
+    <h1 id="nick">User</h1>
+  </div>
+
+  <!-- ASSETS -->
+  <div id="assets" style="display:none;">
+    <h2>Assets</h2>
+    <p>No items yet</p>
+  </div>
+
+  <!-- PROFILE PANEL -->
+  <div id="profilePanel" style="display:none;">
+    <div class="avatarBig"></div>
+
+    <input id="bioInput" placeholder="write bio...">
+
+    <button onclick="saveProfile()">Save</button>
+  </div>
+
 </div>
 
-<!-- HOME -->
-<div id="home">
-  <h1 id="nick">User</h1>
-</div>
-
-<!-- ASSETS -->
-<div id="assets" style="display:none;">
-  <h2>Assets page</h2>
-</div>
-
-<!-- PROFILE PANEL -->
-<div id="profilePanel" style="display:none;">
-  <div class="avatarBig" id="profileAvatar"></div>
-
-  <input id="bioInput" placeholder="bio">
-
-  <button onclick="saveProfile()">Save</button>
-</div>
-
+<!-- ================= SCRIPT ================= -->
 <script type="module" src="script.js"></script>
 
 </body>
