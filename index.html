@@ -1,4 +1,19 @@
-<div id="loginScreen">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Login App</title>
+
+  <!-- STYLE -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ================= LOGIN ================= -->
+<div id="login">
   <input id="username" placeholder="username">
   <input id="email" placeholder="email">
   <input id="password" type="password" placeholder="password">
@@ -7,7 +22,23 @@
   <button onclick="login()">Login</button>
 </div>
 
-<div id="app" class="hidden">
-  <h1 id="welcomeText"></h1>
-  <p id="role"></p>
+<!-- ================= APP ================= -->
+<div id="app" style="display:none;">
+
+  <h1 id="nick">User</h1>
+  <p id="role">Role</p>
+
+  <!-- PROFILE CARD -->
+  <div id="profileCard">
+    <img id="avatar" src="https://i.imgur.com/8Km9tLL.png">
+    <div id="nickText"></div>
+    <div id="roleText"></div>
+  </div>
+
 </div>
+
+<!-- ================= SCRIPT ================= -->
+<script type="module" src="script.js"></script>
+
+</body>
+</html>
