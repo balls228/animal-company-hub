@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen" class="box">
+  <h2>Login</h2>
+
+  <input id="username" placeholder="Username">
+  <input id="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
+
+  <button onclick="register()">Register</button>
+  <button onclick="login()">Login</button>
+
+  <p id="userText"></p>
+</div>
+
+<!-- APP SCREEN -->
+<div id="app" class="hidden">
+
+  <!-- NAVBAR -->
+  <div class="nav">
+    <button onclick="showHome()">Home</button>
+    <button onclick="showAssets()">Assets</button>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <!-- HOME -->
+  <div id="homePage">
+    <h1>Home</h1>
+    <p id="welcomeText"></p>
+  </div>
+
+  <!-- ASSETS -->
+  <div id="assetsPage" class="hidden">
+    <h1>Assets</h1>
+
+    <input id="assetUrl" placeholder="Image URL">
+    <button onclick="addAsset()">Upload</button>
+
+    <div id="assetsList"></div>
+  </div>
+
+</div>
+
+<script type="module" src="script.js"></script>
+
+</body>
+</html>
