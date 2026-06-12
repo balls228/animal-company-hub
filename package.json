@@ -1,29 +1,10 @@
 {
   "name": "animal-company-hub",
-<<<<<<< HEAD
-  "version": "0.1.0",
-=======
   "version": "1.0.0",
->>>>>>> e33f3d8761ba8e484b236a23f74b99ee8e66d365
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-<<<<<<< HEAD
-    "start": "next start",
-    "lint": "eslint"
-  },
-  "dependencies": {
-    "next": "16.2.9",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
-  },
-  "devDependencies": {
-    "eslint": "^9",
-    "eslint-config-next": "16.2.9"
-  }
-}
-=======
     "start": "next start"
   },
   "dependencies": {
@@ -32,4 +13,3 @@
     "react-dom": "latest"
   }
 }
->>>>>>> e33f3d8761ba8e484b236a23f74b99ee8e66d365
