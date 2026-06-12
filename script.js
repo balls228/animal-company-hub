@@ -1,86 +1,68 @@
 import { supabase } from "./supabase.js";
 
-/* ======================
-   REGISTER
-====================== */
+/* ================= REGISTER ================= */
 window.register = async function () {
   const username = document.getElementById("username").value;
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  const usernameLower = username.trim().toLowerCase();
-
-  // 🔍 проверка
-  const { data: exists } = await supabase
-    .from("profiles")
-    .select("id")
-    .eq("username_lower", usernameLower)
-    .single();
-
-  if (exists) {
-    alert("Username already taken");
+  if (!email || !password || !username) {
+    alert("fill all fields");
     return;
   }
 
-  // 🔐 создаём аккаунт
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
-      data: {
-        username: username
-      }
+      data: { username }
     }
   });
 
-  if (error) return alert(error.message);
+  if (error) {
+    alert(error.message);
+    return;
+  }
 
-  // 👤 создаём профиль
-  await supabase.from("profiles").insert({
-    id: data.user.id,
-    username: username,
-    username_lower: usernameLower,
-    role: "player"
-  });
-
-  alert("Account created!");
+  alert("Registered!");
 };
 
-/* ======================
-   LOGIN
-====================== */
+/* ================= LOGIN ================= */
 window.login = async function () {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  const { error } = await supabase.auth.signInWithPassword({
+  const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password
   });
 
-  if (error) return alert(error.message);
+  if (error) {
+    alert(error.message);
+    return;
+  }
 
-  enterApp();
+  loadProfile();
 };
 
-/* ======================
-   ENTER APP
-====================== */
-async function enterApp() {
-  document.getElementById("loginScreen").classList.add("hidden");
-  document.getElementById("app").classList.remove("hidden");
+/* ================= LOAD PROFILE ================= */
+async function loadProfile() {
+  document.getElementById("login").style.display = "none";
+  document.getElementById("app").style.display = "block";
 
   const { data: { user } } = await supabase.auth.getUser();
 
-  const { data } = await supabase
+  const { data, error } = await supabase
     .from("profiles")
     .select("*")
     .eq("id", user.id)
     .single();
 
-  document.getElementById("welcomeText").innerText =
-    "Welcome " + data.username;
+  if (error) {
+    console.log(error);
+    return;
+  }
 
-  document.getElementById("role").innerText =
-    "Role: " + data.role;
+  document.getElementById("nick").innerText = data.username;
+  document.getElementById("role").innerText = data.role;
 }
