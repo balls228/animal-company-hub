@@ -1,19 +1,16 @@
 /* =========================
-   CUSTOM TTF FONT
+   FONT
 ========================= */
-@font-face {
-  font-family: "MyFont";
-  src: url("./assets/fonts/MyFont.ttf") format("truetype");
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
 /* =========================
-   GLOBAL
+   RESET
 ========================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "MyFont", sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 /* =========================
@@ -21,95 +18,171 @@
 ========================= */
 body {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f0f1a, #1a1f3a);
-  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  background: radial-gradient(circle at top, #1a1f3a, #0b0f1a);
+  color: white;
+  overflow: hidden;
+}
+
+/* animated glow blobs */
+body::before,
+body::after {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: -1;
+}
+
+body::before {
+  background: #6a5acd;
+  top: -100px;
+  left: -100px;
+}
+
+body::after {
+  background: #00c6ff;
+  bottom: -100px;
+  right: -100px;
+}
+
+/* =========================
+   LOGIN BOX (GLASS)
+========================= */
+#login {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 30px;
+
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 
 /* =========================
    INPUTS
 ========================= */
 input {
-  width: 250px;
+  width: 280px;
   padding: 12px;
-  margin: 6px 0;
+  border-radius: 12px;
+
   border: none;
-  border-radius: 10px;
-  background: #1e2540;
-  color: white;
   outline: none;
+
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+
+  transition: 0.2s;
 }
 
-input::placeholder {
-  color: #aaa;
+input:focus {
+  transform: scale(1.03);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 /* =========================
-   BUTTONS
+   BUTTONS (NEON)
 ========================= */
 button {
-  width: 250px;
   padding: 12px;
-  margin-top: 8px;
+  border-radius: 12px;
   border: none;
-  border-radius: 10px;
   cursor: pointer;
-  font-weight: bold;
-  background: linear-gradient(90deg, #6a5acd, #00c6ff);
+
+  font-weight: 600;
   color: white;
+
+  background: linear-gradient(90deg, #6a5acd, #00c6ff);
+  box-shadow: 0 0 15px rgba(0, 198, 255, 0.4);
+
   transition: 0.2s;
 }
 
 button:hover {
-  transform: scale(1.05);
-  filter: brightness(1.2);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 25px rgba(0, 198, 255, 0.7);
 }
 
 /* =========================
-   LOGIN BOX
+   APP SCREEN
 ========================= */
-#login {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 25px;
-  background: rgba(255,255,255,0.05);
-  border-radius: 15px;
-  backdrop-filter: blur(10px);
+#app {
+  text-align: center;
 }
 
 /* =========================
    PROFILE CARD
 ========================= */
 #profileCard {
+  margin-top: 20px;
   padding: 20px;
-  background: rgba(255,255,255,0.06);
-  border-radius: 15px;
-  text-align: center;
-  width: 260px;
+  width: 280px;
+
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
 }
 
+/* avatar */
 #avatar {
   width: 90px;
   height: 90px;
   border-radius: 50%;
-  object-fit: cover;
+
   border: 2px solid #00c6ff;
+  object-fit: cover;
+
+  box-shadow: 0 0 20px rgba(0, 198, 255, 0.5);
 }
 
+/* nickname */
 #nick {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 22px;
+  font-weight: 700;
+  margin-top: 10px;
 }
 
+/* role badge */
 #role {
+  margin-top: 5px;
+  font-size: 14px;
   opacity: 0.8;
 }
 
 /* =========================
-   RESPONSIVE
+   ANIMATION
+========================= */
+#login, #profileCard {
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   MOBILE
 ========================= */
 @media (max-width: 600px) {
   input, button {
