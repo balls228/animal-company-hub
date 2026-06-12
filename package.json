@@ -1,6 +1,23 @@
 {
+<<<<<<< HEAD
   "dependencies": {
     "@supabase/supabase-js": "^2.108.1",
     "firebase": "^12.14.0"
   }
 }
+=======
+  "name": "animal-company-hub",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  }
+}
+>>>>>>> e92f628b4f84d86befd65448af1dbffb8999b8fc
