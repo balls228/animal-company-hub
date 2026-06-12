@@ -21,6 +21,22 @@ window.register = async function () {
   alert("Account created!");
 };
 
+window.guestLogin = function () {
+  user = {
+    id: "guest",
+    user_metadata: {
+      username: "Guest"
+    }
+  };
+
+  document.getElementById("login").style.display = "none";
+  document.getElementById("sidebar").style.display = "flex";
+
+  goHome();
+
+  console.log("Guest mode enabled");
+};
+
 /* ================= LOGIN ================= */
 window.login = async function () {
   const email = document.getElementById("email").value;
@@ -67,6 +83,12 @@ async function ensureProfile(u) {
 
 /* ================= LOAD PROFILE ================= */
 async function loadProfile() {
+  if (!user || user.id === "guest") {
+    document.getElementById("profileNick").innerText = "Guest";
+    document.getElementById("profileRole").innerText = "guest";
+    return;
+  }
+
   const { data } = await supabase
     .from("profiles")
     .select("*")
@@ -77,18 +99,6 @@ async function loadProfile() {
 
   document.getElementById("profileNick").innerText = data.username;
   document.getElementById("profileRole").innerText = data.role;
-  document.getElementById("bioInput").value = data.bio || "";
-
-  if (data.avatar) {
-    document.getElementById("profileAvatar").src = data.avatar;
-    document.getElementById("avatarBtn").style.backgroundImage =
-      `url(${data.avatar})`;
-    document.getElementById("avatarBtn").style.backgroundSize = "cover";
-  }
-
-  if (data.role === "admin") {
-    document.getElementById("adminPanel").style.display = "block";
-  }
 }
 
 /* ================= ENTER APP ================= */
