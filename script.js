@@ -26,19 +26,24 @@ window.login = async function () {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
+  console.log("login clicked");
+
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password
   });
 
-  if (error) return alert(error.message);
+  if (error) {
+    alert(error.message);
+    return;
+  }
 
   user = data.user;
 
-  await ensureProfile(user);
-  await loadProfile();
+  document.getElementById("login").style.display = "none";
+  document.getElementById("sidebar").style.display = "flex";
 
-  enterApp();
+  goHome();
 };
 
 /* ================= PROFILE CREATE ================= */
