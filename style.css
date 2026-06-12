@@ -44,6 +44,18 @@ button {
   background: #11182b;
 }
 
+/* DROP ZONE */
+#dropZone {
+  margin: 20px;
+  padding: 40px;
+  border: 2px dashed #3a5bff;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  color: #9aa8ff;
+}
+
+/* ASSETS GRID */
 #assetsList {
   display: grid;
   grid-template-columns: repeat(auto-fill, 150px);
