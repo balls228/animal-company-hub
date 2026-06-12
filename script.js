@@ -1,17 +1,26 @@
 import { supabase } from "./supabase.js";
 
-/* ================= REGISTER ================= */
+/* =========================
+   STATE
+========================= */
+let currentUser = null;
+let profile = null;
+let profileOpen = false;
+
+/* =========================
+   REGISTER
+========================= */
 window.register = async function () {
   const username = document.getElementById("username").value;
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  if (!email || !password || !username) {
-    alert("fill all fields");
+  if (!username || !email || !password) {
+    alert("Fill all fields");
     return;
   }
 
-  const { data, error } = await supabase.auth.signUp({
+  const { error } = await supabase.auth.signUp({
     email,
     password,
     options: {
@@ -24,10 +33,12 @@ window.register = async function () {
     return;
   }
 
-  alert("Registered!");
+  alert("Account created!");
 };
 
-/* ================= LOGIN ================= */
+/* =========================
+   LOGIN
+========================= */
 window.login = async function () {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
@@ -42,20 +53,19 @@ window.login = async function () {
     return;
   }
 
-  loadProfile();
+  currentUser = data.user;
+  await loadProfile();
+  enterApp();
 };
 
-/* ================= LOAD PROFILE ================= */
+/* =========================
+   LOAD PROFILE
+========================= */
 async function loadProfile() {
-  document.getElementById("login").style.display = "none";
-  document.getElementById("app").style.display = "block";
-
-  const { data: { user } } = await supabase.auth.getUser();
-
   const { data, error } = await supabase
     .from("profiles")
     .select("*")
-    .eq("id", user.id)
+    .eq("id", currentUser.id)
     .single();
 
   if (error) {
@@ -63,6 +73,82 @@ async function loadProfile() {
     return;
   }
 
-  document.getElementById("nick").innerText = data.username;
-  document.getElementById("role").innerText = data.role;
+  profile = data;
+
+  document.getElementById("nick").innerText = profile.username;
+  document.getElementById("avatarBtn").style.background = "white";
 }
+
+/* =========================
+   ENTER APP
+========================= */
+function enterApp() {
+  document.getElementById("login").style.display = "none";
+  document.getElementById("app").style.display = "block";
+
+  goHome();
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+window.goHome = function () {
+  document.getElementById("home").style.display = "block";
+  document.getElementById("assets").style.display = "none";
+};
+
+window.goAssets = function () {
+  document.getElementById("home").style.display = "none";
+  document.getElementById("assets").style.display = "block";
+};
+
+/* =========================
+   PROFILE PANEL
+========================= */
+window.toggleProfile = function () {
+  profileOpen = !profileOpen;
+  document.getElementById("profilePanel").style.display =
+    profileOpen ? "block" : "none";
+
+  if (profileOpen && profile) {
+    document.getElementById("bioInput").value = profile.bio || "";
+  }
+};
+
+/* =========================
+   SAVE PROFILE
+========================= */
+window.saveProfile = async function () {
+  const bio = document.getElementById("bioInput").value;
+
+  const { error } = await supabase
+    .from("profiles")
+    .update({
+      bio: bio
+    })
+    .eq("id", currentUser.id);
+
+  if (error) {
+    alert(error.message);
+    return;
+  }
+
+  alert("Saved!");
+
+  profile.bio = bio;
+};
+
+/* =========================
+   AUTO CHECK SESSION
+========================= */
+async function checkUser() {
+  const { data } = await supabase.auth.getUser();
+
+  if (data.user) {
+    currentUser = data.user;
+    await loadProfile();
+    enterApp();
+  }
+}
+
+checkUser();

@@ -1,43 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Login App</title>
-
-  <!-- STYLE -->
+  <title>App</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- ================= LOGIN ================= -->
-<div id="login">
-  <input id="username" placeholder="username">
-  <input id="email" placeholder="email">
-  <input id="password" type="password" placeholder="password">
-
-  <button onclick="register()">Register</button>
-  <button onclick="login()">Login</button>
-</div>
-
-<!-- ================= APP ================= -->
-<div id="app" style="display:none;">
-
-  <h1 id="nick">User</h1>
-  <p id="role">Role</p>
-
-  <!-- PROFILE CARD -->
-  <div id="profileCard">
-    <img id="avatar" src="https://i.imgur.com/8Km9tLL.png">
-    <div id="nickText"></div>
-    <div id="roleText"></div>
+<!-- TOP BAR -->
+<div id="topbar">
+  <div class="nav">
+    <button onclick="goHome()">Home</button>
+    <button onclick="goAssets()">Assets</button>
   </div>
 
+  <div id="avatarBtn" onclick="toggleProfile()"></div>
 </div>
 
-<!-- ================= SCRIPT ================= -->
+<!-- HOME -->
+<div id="home">
+  <h1 id="nick">User</h1>
+</div>
+
+<!-- ASSETS -->
+<div id="assets" style="display:none;">
+  <h2>Assets page</h2>
+</div>
+
+<!-- PROFILE PANEL -->
+<div id="profilePanel" style="display:none;">
+  <div class="avatarBig" id="profileAvatar"></div>
+
+  <input id="bioInput" placeholder="bio">
+
+  <button onclick="saveProfile()">Save</button>
+</div>
+
 <script type="module" src="script.js"></script>
 
 </body>
