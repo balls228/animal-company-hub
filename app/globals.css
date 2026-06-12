@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #111;
+  color: white;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 15px;
+  background: #1a1a1a;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
