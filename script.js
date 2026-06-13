@@ -1,4 +1,5 @@
 import { supabase } from "./supabase.js";
+console.log("SCRIPT LOADED");
 
 let user = null;
 
