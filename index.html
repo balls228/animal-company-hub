@@ -3,11 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Site</title>
+<title>My App</title>
+
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
+<!-- ================= LOGIN ================= -->
 <div id="login">
     <h2>Login</h2>
 
@@ -20,6 +23,7 @@
     <button onclick="guestLogin()">Continue as Guest</button>
 </div>
 
+<!-- ================= SIDEBAR ================= -->
 <div id="sidebar" style="display:none;">
     <button onclick="goHome()">🏠 Home</button>
     <button onclick="goAssets()">📦 Assets</button>
@@ -27,7 +31,9 @@
     <button onclick="logout()">🚪 Logout</button>
 </div>
 
+<!-- ================= CONTENT ================= -->
 <div id="content" style="display:none;">
+
     <div id="home">
         <h1>Home</h1>
     </div>
@@ -35,8 +41,10 @@
     <div id="assets" style="display:none;">
         <h1>Assets</h1>
     </div>
+
 </div>
 
+<!-- ================= PROFILE ================= -->
 <div id="profilePanel" style="display:none;">
     <h2 id="profileNick">Guest</h2>
     <p id="profileRole">guest</p>
@@ -44,45 +52,11 @@
     <textarea id="bioInput" placeholder="Your bio"></textarea>
 </div>
 
-<script>
-function login() {
-    document.getElementById("login").style.display = "none";
-    document.getElementById("sidebar").style.display = "block";
-    document.getElementById("content").style.display = "block";
-}
+<!-- ================= SUPABASE SCRIPT ================= -->
+<script type="module" src="supabase.js"></script>
 
-function register() {
-    alert("Register clicked");
-}
-
-function guestLogin() {
-    login();
-}
-
-function goHome() {
-    document.getElementById("home").style.display = "block";
-    document.getElementById("assets").style.display = "none";
-}
-
-function goAssets() {
-    document.getElementById("home").style.display = "none";
-    document.getElementById("assets").style.display = "block";
-}
-
-function toggleProfile() {
-    const panel = document.getElementById("profilePanel");
-
-    if (panel.style.display === "none" || panel.style.display === "") {
-        panel.style.display = "block";
-    } else {
-        panel.style.display = "none";
-    }
-}
-
-function logout() {
-    location.reload();
-}
-</script>
+<!-- ================= MAIN SCRIPT ================= -->
+<script type="module" src="script.js"></script>
 
 </body>
 </html>

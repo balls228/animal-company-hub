@@ -1,7 +1,32 @@
 import { supabase } from "./supabase.js";
-console.log("SCRIPT LOADED");
 
 let user = null;
+
+console.log("SCRIPT LOADED");
+
+/* ================= LOGIN ================= */
+window.login = async function () {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if (error) return alert(error.message);
+
+  user = data.user;
+
+  await ensureProfile(user);
+  await loadProfile();
+
+  document.getElementById("login").style.display = "none";
+  document.getElementById("sidebar").style.display = "block";
+  document.getElementById("content").style.display = "block";
+
+  goHome();
+};
 
 /* ================= REGISTER ================= */
 window.register = async function () {
@@ -22,6 +47,7 @@ window.register = async function () {
   alert("Account created!");
 };
 
+/* ================= GUEST ================= */
 window.guestLogin = function () {
   user = {
     id: "guest",
@@ -31,35 +57,10 @@ window.guestLogin = function () {
   };
 
   document.getElementById("login").style.display = "none";
-  document.getElementById("sidebar").style.display = "flex";
+  document.getElementById("sidebar").style.display = "block";
+  document.getElementById("content").style.display = "block";
 
-  goHome();
-
-  console.log("Guest mode enabled");
-};
-
-/* ================= LOGIN ================= */
-window.login = async function () {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-
-  console.log("login clicked");
-
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password
-  });
-
-  if (error) {
-    alert(error.message);
-    return;
-  }
-
-  user = data.user;
-
-  document.getElementById("login").style.display = "none";
-  document.getElementById("sidebar").style.display = "flex";
-
+  loadProfile();
   goHome();
 };
 
@@ -102,14 +103,6 @@ async function loadProfile() {
   document.getElementById("profileRole").innerText = data.role;
 }
 
-/* ================= ENTER APP ================= */
-function enterApp() {
-  document.getElementById("login").style.display = "none";
-  document.getElementById("sidebar").style.display = "flex";
-
-  goHome();
-}
-
 /* ================= NAV ================= */
 window.goHome = function () {
   document.getElementById("home").style.display = "block";
@@ -121,64 +114,12 @@ window.goAssets = function () {
   document.getElementById("assets").style.display = "block";
 };
 
-/* ================= PROFILE TOGGLE ================= */
+/* ================= PROFILE ================= */
 window.toggleProfile = function () {
-  const p = document.getElementById("profilePanel");
-  p.style.display = p.style.display === "block" ? "none" : "block";
-};
+  const panel = document.getElementById("profilePanel");
 
-/* ================= SAVE BIO ================= */
-window.saveProfile = async function () {
-  const bio = document.getElementById("bioInput").value;
-
-  await supabase
-    .from("profiles")
-    .update({ bio })
-    .eq("id", user.id);
-
-  alert("Saved!");
-};
-
-/* ================= AVATAR ================= */
-const avatarInput = document.getElementById("avatarInput");
-
-if (avatarInput) {
-  avatarInput.addEventListener("change", function () {
-    const file = this.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-
-    reader.onload = async function (e) {
-      const img = e.target.result;
-
-      document.getElementById("profileAvatar").src = img;
-      document.getElementById("avatarBtn").style.backgroundImage =
-        `url(${img})`;
-
-      await supabase
-        .from("profiles")
-        .update({ avatar: img })
-        .eq("id", user.id);
-    };
-
-    reader.readAsDataURL(file);
-  });
-}
-
-/* ================= ADMIN PANEL ================= */
-window.giveRole = async function () {
-  const username = document.getElementById("targetUser").value;
-  const role = document.getElementById("roleSelect").value;
-
-  const { error } = await supabase
-    .from("profiles")
-    .update({ role })
-    .eq("username", username);
-
-  if (error) return alert(error.message);
-
-  alert("Role updated!");
+  panel.style.display =
+    panel.style.display === "block" ? "none" : "block";
 };
 
 /* ================= LOGOUT ================= */
@@ -189,10 +130,10 @@ window.logout = async function () {
 
   document.getElementById("login").style.display = "block";
   document.getElementById("sidebar").style.display = "none";
-  document.getElementById("adminPanel").style.display = "none";
+  document.getElementById("content").style.display = "none";
 };
 
-/* ================= SESSION ================= */
+/* ================= INIT ================= */
 async function init() {
   const { data } = await supabase.auth.getSession();
 
@@ -203,7 +144,8 @@ async function init() {
     await loadProfile();
 
     document.getElementById("login").style.display = "none";
-    document.getElementById("sidebar").style.display = "flex";
+    document.getElementById("sidebar").style.display = "block";
+    document.getElementById("content").style.display = "block";
 
     goHome();
   }
